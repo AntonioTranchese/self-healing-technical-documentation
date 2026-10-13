@@ -1,0 +1,10 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "tool": "self-healing-docs",
+    "code_dir": "./my_project/src",
+    "docs_dir": "./my_project/docs"
+  },
+  "nodes": {},
+  "edges": []
+}
