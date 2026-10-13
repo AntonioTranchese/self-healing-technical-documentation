@@ -14,6 +14,8 @@ class CodeChunk:
     docstring: Optional[str]
     raw_source: str
     decorators: list[str] = field(default_factory=list)
+    start_line: int = 0
+    end_line: int = 0
 
 class PythonCodeParser:
     def __init__(self, root_dir: str):
@@ -108,6 +110,9 @@ class _ASTChunkVisitor(ast.NodeVisitor):
         docstring = ast.get_docstring(node)
         raw_source = self._get_source_text(node)
 
+        start_line = node.lineno
+        end_line = node.end_lineno
+
         self.chunks.append(CodeChunk(
             id=chunk_id,
             file_path=self.file_path,
@@ -116,5 +121,7 @@ class _ASTChunkVisitor(ast.NodeVisitor):
             signature=signature.split('\n')[0], # Just the first line for signature
             docstring=docstring,
             raw_source=raw_source,
-            decorators=decorators
+            decorators=decorators,
+            start_line=start_line,
+            end_line=end_line
         ))
